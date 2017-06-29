@@ -4,7 +4,7 @@ import Order from './Order';
 import Inventory from './Inventory';
 import Fish from './Fish';
 import sampleFishes from '../sample-fishes.js';
-import base from '../base';
+import rebase from '../base';
 
 class App extends React.Component {
   constructor() {
@@ -24,7 +24,7 @@ class App extends React.Component {
 
   componentWillMount() {
     // this runs right before the app is rendered
-    this.ref = base.syncState(`${this.props.match.params.storeID}/fishes`, {
+    this.ref = rebase.base.syncState(`${this.props.match.params.storeID}/fishes`, {
       context: this,
       state: 'fishes'
     });
@@ -40,7 +40,7 @@ class App extends React.Component {
   }
 
   componentWillUnmount() {
-    base.removeBinding(this.ref);
+    rebase.base.removeBinding(this.ref);
   }
 
   componentWillUpdate(nextProps, nextState) {
@@ -112,13 +112,16 @@ class App extends React.Component {
         <Order
           fishes={this.state.fishes} order={this.state.order}
           params={this.props.match.params}
-          removeFromOrder={this.removeFromOrder}/>
+          removeFromOrder={this.removeFromOrder}
+        />
         <Inventory
           addFish={this.addFish}
           loadSamples={this.loadSamples}
           fishes={this.state.fishes}
           updateFish={this.updateFish}
-          removeFish={this.removeFish}/>
+          removeFish={this.removeFish}
+          storeID={this.props.match.params.storeID}
+        />
       </div>
     )
   }
