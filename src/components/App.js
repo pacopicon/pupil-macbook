@@ -12,6 +12,9 @@ class App extends React.Component {
     this.addFish = this.addFish.bind(this);
     this.loadSamples = this.loadSamples.bind(this);
     this.addToOrder = this.addToOrder.bind(this);
+    this.updateFish = this.updateFish.bind(this);
+    this.removeFish = this.removeFish.bind(this);
+    this.removeFromOrder = this.removeFromOrder.bind(this);
     // getinitialState
     this.state = {
       fishes: {},
@@ -54,7 +57,19 @@ class App extends React.Component {
     // set state
     // this is more standard, grabbing the state and updating it: this.setState({ fishes: fishes})
     // the below is the most advanced syntax, ES6
-    this.setState({ fishes })
+    this.setState({ fishes });
+  }
+
+  updateFish(key, updatedFish) {
+    const fishes = {...this.state.fishes};
+    fishes[key] = updatedFish;
+    this.setState({ fishes });
+  }
+
+  removeFish(key) {
+    const fishes = {...this.state.fishes};
+    fishes[key] = null;
+    this.setState({ fishes });
   }
 
   loadSamples() {
@@ -70,7 +85,13 @@ class App extends React.Component {
     order[key] = order[key] + 1 || 1;
     // update our state
     // this.setState({order: order});
-    this.setState({order: order});
+    this.setState({ order });
+  }
+
+  removeFromOrder(key) {
+    const order = {...this.state.order}
+    delete order[key];
+    this.setState({ order })
   }
 
   render() {
@@ -90,8 +111,14 @@ class App extends React.Component {
         </div>
         <Order
           fishes={this.state.fishes} order={this.state.order}
-          params={this.props.match.params}/>
-        <Inventory addFish={this.addFish} loadSamples={this.loadSamples} fishes={this.state.fishes}/>
+          params={this.props.match.params}
+          removeFromOrder={this.removeFromOrder}/>
+        <Inventory
+          addFish={this.addFish}
+          loadSamples={this.loadSamples}
+          fishes={this.state.fishes}
+          updateFish={this.updateFish}
+          removeFish={this.removeFish}/>
       </div>
     )
   }

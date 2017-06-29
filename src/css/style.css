@@ -1,4 +1,8 @@
 .order-enter {
+  transition: all 1s;
+  /*transform: translateX(-120%) rotate(100deg);*/
+  max-height: 0;
+  padding: 0 !important;
   -webkit-transition: 0.5s;
   transition: 0.5s;
   -webkit-transform: translateX(-120%);
@@ -7,6 +11,9 @@
   padding: 0 !important;
 }
 .order-enter.order-enter-active {
+  max-height: 60px;
+  padding: 2rem 0 !important;
+  /*transform: translateX(0) rotate(450deg);*/
   -webkit-transform: translateX(0);
           transform: translateX(0);
   max-height: 60px;
