@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import PropTypes from 'prop-types';
+
 
 class App extends Component {
   render() {
@@ -16,6 +18,10 @@ class App extends Component {
       </div>
     );
   }
+}
+
+App.propTypes = {
+  params: PropTypes.object.isRequired
 }
 
 export default App;

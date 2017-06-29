@@ -3,6 +3,7 @@ import { render } from 'react-dom';
 // import { BrowserRouter, Match, Miss } from 'react-router';
 // import { BrowserRouter, matchPath, Miss } from 'react-router-dom';
 import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 
 import './css/style.css';
