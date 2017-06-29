@@ -4,26 +4,15 @@ import PropTypes from 'prop-types';
 import firebase from 'firebase';
 import { database } from 'firebase';
 import rebase from '../base';
-// import { oAuthSignIn } from '../base';
 
 class Inventory extends React.Component {
-
-  // const app = firebase.initializeApp({
-  //   apiKey: "AIzaSyBa0XbTBB8V3u84iY4fSw48-zIPP_TWDuY",
-  //   authDomain: "catch-of-the-day-paco.firebaseapp.com",
-  //   databaseURL: "https://catch-of-the-day-paco.firebaseio.com",
-  //   projectId: "catch-of-the-day-paco",
-  //   storageBucket: "catch-of-the-day-paco.appspot.com",
-  //   messagingSenderId: "1021902196353"
-  // });
-
-  // const base = Rebase.createClass(app.database());
 
   constructor() {
     super();
     this.renderInventory = this.renderInventory.bind(this);
     this.renderLogin = this.renderLogin.bind(this);
     this.authenticate = this.authenticate.bind(this);
+    this.logout = this.logout.bind(this);
     this.authHandler = this.authHandler.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.state = {
@@ -57,6 +46,13 @@ class Inventory extends React.Component {
       this.authHandler(authData);
     });
 
+  }
+
+  logout() {
+    rebase.app.auth().signOut().then(() => {
+      console.log("should have been logged out");
+    });
+    this.setState({ uid: null });
   }
 
   authHandler(authData) {
@@ -132,7 +128,8 @@ class Inventory extends React.Component {
   }
 
   render() {
-    const logout = <button>Log Out!</button>;
+    // the long way: const logout = <button onClick={ () => this.logout()}>Log Out!</button>;
+    const logout = <button onClick={this.logout}>Log Out!</button>;
     // check if they are not logged in at all
     if(!this.state.uid) {
       return <div>{this.renderLogin()}</div>
