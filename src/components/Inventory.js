@@ -32,6 +32,14 @@ class Inventory extends React.Component {
     }
   }
 
+  componentDidMount() {
+    rebase.app.auth().onAuthStateChanged((user, error) => {
+      if(user) {
+        this.authHandler({user});
+      }
+    });
+  };
+
   // const app = rebase.app;
   // const base = rebase.base;
 
@@ -76,7 +84,7 @@ class Inventory extends React.Component {
       this.setState({
         uid: authData.user.uid,
         owner: data.owner || authData.user.uid
-      })
+      });
     });
   }
 
